@@ -7,9 +7,16 @@ Cookbook Name:: fs-create
 
 include_recipe "lvm::default"
 
-# Create appsvc user group, then add splunk and mapred users
-# $ groupadd appsvc
-# $ usermod -a -G appsvc splunk && usermod -a -G appsvc mapred
+group "['appsvc']['service']['group']" do 
+  action: create
+end
+
+group "['appsvc']['service']['group']" do 
+  action :manage 
+  members [node['appsvc']['service']['user.1'],node['appsvc']['service']['user.2']] 
+  append true
+end
+
 
 # Create /opt/appsvc/logs directory and set permissions
 directory node['appsvc']['service']['dir'] do
