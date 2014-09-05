@@ -1,4 +1,5 @@
 # Users to be added to the appsvc user group
+
 default['appsvc']['service']['users'] = "splunk","mapred"
 
 # Global Filesystem Attributes
