@@ -15,7 +15,7 @@ end
 # Then add splunk and mapred users to the group
 group "['appsvc']['service']['group']" do 
   action :manage 
-  members [node['appsvc']['service']['user.1'],node['appsvc']['service']['user.2']] 
+  members node['appsvc']['service']['users']
   append true
 end
 
@@ -37,16 +37,7 @@ lvm_logical_volume node['appsvc']['service']['name'] do
   action [:create]
 end
 
-# Echo mount point to /etc/fstab
-mount node['appsvc']['service']['dir'] do
-  device ['appsvc']['service']['device']
-  fstype ['appsvc']['filesystem']['type']
-  mount_point ['appsvc']['service']['dir']
-  action :enable :mount
-end
-
-
-#Delete lost+found from /opt/appsvc/logs
+# Delete lost+found from /opt/appsvc/logs
 directory "/opt/appsvc/logs/lost+found" do
   recursive true
   action :delete
