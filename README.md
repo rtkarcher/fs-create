@@ -26,7 +26,7 @@ This cookbook has the following dependencies:
 Attributes
 --------------
 
-By default, this cookbook works best when run against a CentOS or RHEL 6.5 machine.
+By default, this cookbook works best when run against a CentOS 6.5 or RHEL 6.5 machine.
 
 Currently, the only override attributes defined in the .kitchen.yml file are intended for testing purposes - the user array is defined as containing the `root` and `nobody`users instead of the `mapred` and `splunk` users (in the event that they are absent on the test system).
 
