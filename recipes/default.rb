@@ -7,17 +7,19 @@ Cookbook Name:: fs-create
 
 include_recipe "lvm::default"
 
+# Create appsvc group
 group "appsvc" do 
   action: create
 end
 
+# Then add splunk and mapred users to the group
 group "['appsvc']['service']['group']" do 
   action :manage 
   members [node['appsvc']['service']['user.1'],node['appsvc']['service']['user.2']] 
   append true
 end
 
-# Create mount point (/opt/refrecord/logs directory) and set permissions
+# Create mount point (/opt/appsvc/logs directory) and set permissions
 directory node['appsvc']['service']['dir'] do
   owner "mapred"
   group "appsvc"
@@ -26,20 +28,26 @@ directory node['appsvc']['service']['dir'] do
   recursive true
 end
 
-#Create filesystem and mount at /opt/appsvc/logs
+# Create filesystem and mount at /opt/appsvc/logs
 lvm_logical_volume node['appsvc']['service']['name'] do
-group node['appsvc']['volume-group']['name']
-size node['appsvc']['service']['size']
-filesystem node['appsvc']['filesystem']['type']
-mount_point node['appsvc']['service']['dir']
-action [:create]
+  group node['appsvc']['volume-group']['name']
+  size node['appsvc']['service']['size']
+  filesystem node['appsvc']['filesystem']['type']
+  mount_point node['appsvc']['service']['dir']
+  action [:create]
 end
 
 # Echo mount point to /etc/fstab
-# $ echo "/dev/vg00/lvname /opt/appsvc/logs ext4 defaults 0 0 " >> /etc/fstab
+mount node['appsvc']['service']['dir'] do
+  device ['appsvc']['service']['device']
+  fstype ['appsvc']['filesystem']['type']
+  mount_point ['appsvc']['service']['dir']
+  action :enable :mount
+end
+
 
 #Delete lost+found from /opt/appsvc/logs
 directory "/opt/appsvc/logs/lost+found" do
-recursive true
-action :delete
+  recursive true
+  action :delete
 end
