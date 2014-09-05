@@ -1,3 +1,8 @@
+# Users to be added to the appsvc user group
+default['appsvc']['service']['group'] = "appsvc" 
+default['appsvc']['service']['user.1'] = "splunk" 
+default['appsvc']['service']['user.2'] = "mapred"
+
 # Global Filesystem Attributes
 
 default['appsvc']['volume-group']['name'] = "vg00"
