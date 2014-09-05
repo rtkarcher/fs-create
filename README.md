@@ -1,7 +1,7 @@
 fs-create
 =========
 
-This Chef cookbook leverages the existing lvm community cookbook in creating customized logical volumes and mounted filesystems
+This Chef cookbook leverages the existing lvm community cookbook in creating customized logical volumes and mounted filesystems. Namely, it will do the following:
 
 * Partition a 5GB logical volume (`lvname`) from the `vg00` volume group
 * Format the newly-created `lvname` for `ext4` and mount at `/opt/appsvc/logs`, then create a mount point entry in `/etc/fstab`
