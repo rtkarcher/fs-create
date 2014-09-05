@@ -1,11 +1,11 @@
 # Global Filesystem Attributes
 
-default['refrecord']['volume-group']['name'] = "vg00"
-default['refrecord']['filesystem']['type'] = "ext4"
+default['appsvc']['volume-group']['name'] = "vg00"
+default['appsvc']['filesystem']['type'] = "ext4"
 
-# Filesystem to mount at /opt/refrecord/logs
+# Filesystem to mount at /opt/appsvc/logs
 
-default['refrecord']['service']['name'] = "lvname"
-default['refrecord']['service']['size'] = "5G"
-default['refrecord']['service']['dir'] = "/opt/appsvc/logs"
-default['refrecord']['service']['device'] = "/dev/mapper/vg00-lvname"
+default['appsvc']['service']['name'] = "lvname"
+default['appsvc']['service']['size'] = "5G"
+default['appsvc']['service']['dir'] = "/opt/appsvc/logs"
+default['appsvc']['service']['device'] = "/dev/mapper/vg00-lvname"
