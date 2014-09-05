@@ -17,8 +17,7 @@ group "['appsvc']['service']['group']" do
   append true
 end
 
-
-# Create /opt/appsvc/logs directory and set permissions
+# Create mount point (/opt/refrecord/logs directory) and set permissions
 directory node['appsvc']['service']['dir'] do
   owner "mapred"
   group "appsvc"
