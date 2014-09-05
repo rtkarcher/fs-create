@@ -7,7 +7,7 @@ Cookbook Name:: fs-create
 
 include_recipe "lvm::default"
 
-group "['appsvc']['service']['group']" do 
+group "appsvc" do 
   action: create
 end
 
