@@ -7,25 +7,11 @@ Cookbook Name:: fs-create
 
 include_recipe "lvm::default"
 
-# Create appsvc group
+# Create appsvc group, then add users to group
 group "appsvc" do 
-  action: create
-end
-
-# Then add splunk and mapred users to the group
-group "['appsvc']['service']['group']" do 
-  action :manage 
+  action [:create,:manage]
   members node['appsvc']['service']['users']
   append true
-end
-
-# Create mount point (/opt/appsvc/logs directory) and set permissions
-directory node['appsvc']['service']['dir'] do
-  owner "mapred"
-  group "appsvc"
-  mode 00775
-  action :create
-  recursive true
 end
 
 # Create filesystem and mount at /opt/appsvc/logs
@@ -37,8 +23,17 @@ lvm_logical_volume node['appsvc']['service']['name'] do
   action [:create]
 end
 
+# Create mount point (/opt/appsvc/logs directory) and set permissions
+directory node['appsvc']['service']['dir'] do
+  owner "mapred"
+  group "appsvc"
+  mode 00775
+  action :create
+  recursive true
+end
+
 # Delete lost+found from /opt/appsvc/logs
-directory "/opt/appsvc/logs/lost+found" do
+directory File.join(node['appsvc']['service']['dir'],"lost+found") do
   recursive true
   action :delete
 end
