@@ -1,5 +1,5 @@
 # Users to be added to the appsvc user group
-default['appsvc']['service']['users'] = ["splunk","mapred"]
+default['appsvc']['service']['users'] = "splunk","mapred"
 
 # Global Filesystem Attributes
 
@@ -11,4 +11,3 @@ default['appsvc']['filesystem']['type'] = "ext4"
 default['appsvc']['service']['name'] = "lvname"
 default['appsvc']['service']['size'] = "5G"
 default['appsvc']['service']['dir'] = "/opt/appsvc/logs"
-default['appsvc']['service']['device'] = "/dev/mapper/vg00-lvname"
